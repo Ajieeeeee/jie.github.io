@@ -2,27 +2,7 @@
 <html>
 <head>
     <title>Login with Facebook and Google</title>
-    <!-- Include the Facebook JavaScript SDK -->
     <script>
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId: '1427950654430968', // Replace with your Facebook App ID
-                cookie: true,
-                xfbml: true,
-                version: 'v12.0'
-            });
-
-            FB.AppEvents.logPageView();
-        };
-
-        (function(d, s, id){
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-
         // Function to handle the user's login status for Facebook
         function statusChangeCallback(response) {
             if (response.status === 'connected') {
@@ -40,11 +20,7 @@
                 statusChangeCallback(response);
             });
         }
-    </script>
 
-    <!-- Include the Google Sign-In JavaScript Library -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script>
         // Function to handle the user's login status for Google
         function onSignIn(googleUser) {
             // Access user information
@@ -54,14 +30,11 @@
             console.log("Email: " + profile.getEmail());
             // You can perform actions like sending the user's information to your server.
         }
-
-        // Initialize Google Sign-In
-        gapi.load('auth2', function() {
-            gapi.auth2.init({
-                client_id: 'YOUR_CLIENT_ID', // Replace with your Google OAuth 2.0 Client ID
-            });
-        });
     </script>
+
+    <!-- Include the Google Sign-In JavaScript Library -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
     <style>
         /* Common styles for both buttons */
         .login-button {
@@ -116,14 +89,8 @@
 <body style="text-align: center;">
     <h1>Login with Facebook and Google</h1>
 
-    <!-- Create a login button using Facebook's standard login button -->
+    <!-- Create a login button using a simple Facebook login button -->
     <a href="#" class="login-button facebook-button" 
-        data-size="large" 
-        data-button-type="continue_with" 
-        data-layout="default" 
-        data-auto-logout-link="false" 
-        data-use-continue-as="true" 
-        data-scope="public_profile,email"
         onclick="checkLoginState();">
         <img src="https://cdn.jsdelivr.net/npm/simple-icons@5.6/icons/facebook.svg" class="facebook-logo" alt="Facebook Logo">
         Facebook
