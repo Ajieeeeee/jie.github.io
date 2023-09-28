@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Facebook Login Example</title>
+    <title>Login with Facebook</title>
     <!-- Include the Facebook JavaScript SDK -->
     <script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId: '1427950654430968',
-          cookie: true,
-          xfbml: true,
-          version: 'v12.0'
-        });
-      };
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '1427950654430968', // Replace with your Facebook App ID
+                cookie: true,
+                xfbml: true,
+                version: 'v12.0' // Replace with the desired API version
+            });
+        };
 
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/en_US/sdk.js';
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     </script>
 </head>
 <body>
-    <h1>Facebook Login Example</h1>
+    <h1>Login with Facebook</h1>
 
-    <!-- Create a login button -->
+    <!-- Create a login button using Facebook's standard login button -->
     <div class="fb-login-button" 
          data-size="large" 
          data-button-type="continue_with" 
@@ -38,25 +38,17 @@
     <div id="user-info"></div>
 
     <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '{your-app-id}',
-      cookie     : true,
-      xfbml      : true,
-      version    : '{api-version}'
-    });
-      
-    FB.AppEvents.logPageView();   
-      
-  };
+        // Function to update user information on the page
+        function updateUserInfo(response) {
+            var userInfo = document.getElementById('user-info');
+            userInfo.innerHTML = '<p>Welcome, ' + response.name + '!</p>';
+        }
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+        // Subscribe to the login event
+        FB.Event.subscribe('auth.login', function(response) {
+            // User just logged in, display user information
+            updateUserInfo(response.authResponse);
+        });
     </script>
 </body>
 </html>
