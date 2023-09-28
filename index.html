@@ -62,23 +62,77 @@
             });
         });
     </script>
+    <style>
+        /* Common styles for both buttons */
+        .login-button {
+            display: block;
+            margin: 20px auto;
+            font-weight: bold;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            height: 60px;
+            width: 250px;
+            text-align: center;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Styles for the Facebook button */
+        .facebook-button {
+            background-color: #1877f2;
+            color: #fff;
+        }
+        .facebook-button:hover {
+            background-color: #0e63b1;
+        }
+        .facebook-logo {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        /* Styles for the Google button */
+        .google-button {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #000;
+        }
+        .google-button:hover {
+            background-color: #f2f2f2;
+        }
+        .google-logo {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+    </style>
 </head>
-<body>
+<body style="text-align: center;">
     <h1>Login with Facebook and Google</h1>
 
     <!-- Create a login button using Facebook's standard login button -->
-    <div class="fb-login-button" 
+    <a href="#" class="login-button facebook-button" 
         data-size="large" 
         data-button-type="continue_with" 
         data-layout="default" 
         data-auto-logout-link="false" 
         data-use-continue-as="true" 
-        data-width=""
         data-scope="public_profile,email"
-        onlogin="checkLoginState();">
-    </div>
+        onclick="checkLoginState();">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@5.6/icons/facebook.svg" class="facebook-logo" alt="Facebook Logo">
+        Facebook
+    </a>
 
     <!-- Display user information once logged in with Google -->
-    <div id="google-signin-button" class="g-signin2" data-onsuccess="onSignIn"></div>
+    <a href="#" class="login-button google-button" onclick="startGoogleSignIn()">
+        <img class="google-logo" src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo">
+        Google
+    </a>
 </body>
 </html>
