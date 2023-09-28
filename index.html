@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login with Facebook</title>
+    <title>Login with Facebook and Google</title>
     <!-- Include the Facebook JavaScript SDK -->
     <script>
         window.fbAsyncInit = function() {
@@ -23,14 +23,14 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
-        // Function to handle the user's login status
+        // Function to handle the user's login status for Facebook
         function statusChangeCallback(response) {
             if (response.status === 'connected') {
-                // User is logged in, you can access the authResponse object
+                // User is logged in with Facebook, you can access the authResponse object
                 var authResponse = response.authResponse;
                 // Perform actions like fetching user data or redirecting.
             } else {
-                // User is not logged in or declined the login
+                // User is not logged in or declined the login with Facebook
             }
         }
 
@@ -41,9 +41,30 @@
             });
         }
     </script>
+
+    <!-- Include the Google Sign-In JavaScript Library -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        // Function to handle the user's login status for Google
+        function onSignIn(googleUser) {
+            // Access user information
+            var profile = googleUser.getBasicProfile();
+            console.log("Google ID: " + profile.getId());
+            console.log("Name: " + profile.getName());
+            console.log("Email: " + profile.getEmail());
+            // You can perform actions like sending the user's information to your server.
+        }
+
+        // Initialize Google Sign-In
+        gapi.load('auth2', function() {
+            gapi.auth2.init({
+                client_id: 'YOUR_CLIENT_ID', // Replace with your Google OAuth 2.0 Client ID
+            });
+        });
+    </script>
 </head>
 <body>
-    <h1>Login with Facebook</h1>
+    <h1>Login with Facebook and Google</h1>
 
     <!-- Create a login button using Facebook's standard login button -->
     <div class="fb-login-button" 
@@ -57,7 +78,7 @@
         onlogin="checkLoginState();">
     </div>
 
-    <!-- Display user information once logged in -->
-    <div id="user-info"></div>
+    <!-- Display user information once logged in with Google -->
+    <div id="google-signin-button" class="g-signin2" data-onsuccess="onSignIn"></div>
 </body>
 </html>
