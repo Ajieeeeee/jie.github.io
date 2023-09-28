@@ -15,9 +15,17 @@
         }
 
         // Function to initiate the Facebook login process
-        function checkLoginState() {
+        function startFacebookSignIn() {
             FB.getLoginStatus(function(response) {
-                statusChangeCallback(response);
+                if (response.status !== 'connected') {
+                    // User is not already logged in, trigger the login process
+                    FB.login(function(response) {
+                        statusChangeCallback(response);
+                    }, {scope: 'public_profile,email'});
+                } else {
+                    // User is already logged in, you can access the authResponse object
+                    statusChangeCallback(response);
+                }
             });
         }
 
@@ -34,6 +42,28 @@
 
     <!-- Include the Google Sign-In JavaScript Library -->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!-- Include the Facebook JavaScript SDK -->
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '1427950654430968', // Replace with your Facebook App ID
+                cookie: true,
+                xfbml: true,
+                version: 'v12.0'
+            });
+
+            FB.AppEvents.logPageView();
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
 
     <style>
         /* Common styles for both buttons */
@@ -91,7 +121,7 @@
 
     <!-- Create a login button using a simple Facebook login button -->
     <a href="#" class="login-button facebook-button" 
-        onclick="checkLoginState();">
+        onclick="startFacebookSignIn();">
         <img src="https://cdn.jsdelivr.net/npm/simple-icons@5.6/icons/facebook.svg" class="facebook-logo" alt="Facebook Logo">
         Facebook
     </a>
@@ -103,3 +133,4 @@
     </a>
 </body>
 </html>
+
