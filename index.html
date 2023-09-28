@@ -6,7 +6,7 @@
     <script>
       window.fbAsyncInit = function() {
         FB.init({
-          appId: '1007648737225863',
+          appId: '1427950654430968',
           cookie: true,
           xfbml: true,
           version: 'v12.0'
@@ -38,25 +38,25 @@
     <div id="user-info"></div>
 
     <script>
-        // Function to update user information on the page
-        function updateUserInfo(response) {
-            var userInfo = document.getElementById('user-info');
-            userInfo.innerHTML = '<p>Welcome, ' + response.name + '!</p>';
-        }
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '{your-app-id}',
+      cookie     : true,
+      xfbml      : true,
+      version    : '{api-version}'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
 
-        // Check the user's login status
-        FB.getLoginStatus(function(response) {
-            if (response.status === 'connected') {
-                // User is logged in, display user information
-                updateUserInfo(response.authResponse);
-            }
-        });
-        
-        // Subscribe to the login event
-        FB.Event.subscribe('auth.login', function(response) {
-            // User just logged in, display user information
-            updateUserInfo(response.authResponse);
-        });
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
     </script>
 </body>
 </html>
