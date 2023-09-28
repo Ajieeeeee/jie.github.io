@@ -9,17 +9,37 @@
                 appId: '1427950654430968', // Replace with your Facebook App ID
                 cookie: true,
                 xfbml: true,
-                version: 'v12.0' // Replace with the desired API version
+                version: 'v12.0'
             });
+
+            FB.AppEvents.logPageView();
         };
 
-        (function(d, s, id) {
+        (function(d, s, id){
             var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
+            if (d.getElementById(id)) {return;}
             js = d.createElement(s); js.id = id;
-            js.src = 'https://connect.facebook.net/en_US/sdk.js';
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
+
+        // Function to handle the user's login status
+        function statusChangeCallback(response) {
+            if (response.status === 'connected') {
+                // User is logged in, you can access the authResponse object
+                var authResponse = response.authResponse;
+                // Perform actions like fetching user data or redirecting.
+            } else {
+                // User is not logged in or declined the login
+            }
+        }
+
+        // Function to initiate the Facebook login process
+        function checkLoginState() {
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+        }
     </script>
 </head>
 <body>
@@ -27,28 +47,17 @@
 
     <!-- Create a login button using Facebook's standard login button -->
     <div class="fb-login-button" 
-         data-size="large" 
-         data-button-type="continue_with" 
-         data-layout="default" 
-         data-auto-logout-link="false" 
-         data-use-continue-as="true" 
-         data-width=""></div>
+        data-size="large" 
+        data-button-type="continue_with" 
+        data-layout="default" 
+        data-auto-logout-link="false" 
+        data-use-continue-as="true" 
+        data-width=""
+        scope="public_profile,email"
+        onlogin="checkLoginState();">
+    </div>
 
     <!-- Display user information once logged in -->
     <div id="user-info"></div>
-
-    <script>
-        // Function to update user information on the page
-        function updateUserInfo(response) {
-            var userInfo = document.getElementById('user-info');
-            userInfo.innerHTML = '<p>Welcome, ' + response.name + '!</p>';
-        }
-
-        // Subscribe to the login event
-        FB.Event.subscribe('auth.login', function(response) {
-            // User just logged in, display user information
-            updateUserInfo(response.authResponse);
-        });
-    </script>
 </body>
 </html>
