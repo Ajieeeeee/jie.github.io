@@ -20,6 +20,17 @@
                 });
             });
         }
+            function startFacebookSignIn() {
+    FB.login(function(response) {
+        if (response.authResponse) {
+            console.log('Logged in with Facebook!');
+            // Perform actions after successful login
+        } else {
+            console.log('Facebook login failed or cancelled.');
+        }
+    }, {scope: 'email'}); // Request email permission during login
+}
+
     </script>
 
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
