@@ -10,16 +10,20 @@
             console.log("Email: " + profile.getEmail());
         }
 
-        function startGoogleSignIn() {
-            gapi.load('auth2', function() {
-                gapi.auth2.init({
-                    client_id: '156698314002-pa8phsisu2c4r8s0it9f30muj2b95rth.apps.googleusercontent.com'
-                }).then(function() {
-                    var auth2 = gapi.auth2.getAuthInstance();
-                    auth2.signIn().then(onSignIn);
-                });
+function startGoogleSignIn() {
+    gapi.load('auth2', function() {
+        gapi.auth2.init({
+            client_id: '156698314002-pa8phsisu2c4r8s0it9f30muj2b95rth.apps.googleusercontent.com'
+        }).then(function(auth2) {
+            auth2.signIn().then(function(googleUser) {
+                // Handle successful sign-in
+            }).catch(function(error) {
+                console.error('Google Sign-In Error: ', error);
             });
-        }
+        });
+    });
+}
+
             function startFacebookSignIn() {
     FB.login(function(response) {
         if (response.authResponse) {
