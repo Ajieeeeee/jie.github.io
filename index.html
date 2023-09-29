@@ -3,21 +3,17 @@
 <head>
     <title>Login with Facebook and Google</title>
     <script>
-        // Function to handle the user's login status for Google
         function onSignIn(googleUser) {
-            // Access user information
             var profile = googleUser.getBasicProfile();
             console.log("Google ID: " + profile.getId());
             console.log("Name: " + profile.getName());
             console.log("Email: " + profile.getEmail());
-            // You can perform actions like sending the user's information to your server.
         }
 
-        // Load the Google Sign-In API with your client ID
         function startGoogleSignIn() {
             gapi.load('auth2', function() {
                 gapi.auth2.init({
-                    client_id: '156698314002-pa8phsisu2c4r8s0it9f30muj2b95rth.apps.googleusercontent.com' // Replace with your Google Client ID
+                    client_id: '156698314002-pa8phsisu2c4r8s0it9f30muj2b95rth.apps.googleusercontent.com'
                 }).then(function() {
                     var auth2 = gapi.auth2.getAuthInstance();
                     auth2.signIn().then(onSignIn);
@@ -26,14 +22,12 @@
         }
     </script>
 
-    <!-- Include the Google Sign-In JavaScript Library -->
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
-    <!-- Include the Facebook JavaScript SDK -->
     <script>
         window.fbAsyncInit = function() {
             FB.init({
-                appId: '300289862630159', // Replace with your Facebook App ID
+                appId: '300289862630159',
                 cookie: true,
                 xfbml: true,
                 version: 'v12.0'
@@ -52,16 +46,15 @@
     </script>
 
     <style>
-        /* Common styles for both buttons */
         .login-button {
             display: block;
             margin: 20px auto;
             font-weight: bold;
             border-radius: 30px;
-            border: 3px solid transparent; /* Add a 3px wide transparent border */
+            border: 3px solid transparent;
             cursor: pointer;
             height: 60px;
-            width: 320px; /* Increase the width to make it wider */
+            width: 320px;
             text-align: center;
             font-size: 18px;
             text-transform: uppercase;
@@ -70,12 +63,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-left: 15px; /* Increase left padding for more space */
-            padding-right: 15px; /* Increase right padding for more space */
-            text-decoration: none; /* Remove underlines from anchor tags */
+            padding-left: 15px;
+            padding-right: 15px;
+            text-decoration: none;
         }
 
-        /* Styles for the Facebook button */
         .facebook-button {
             background-color: #1877f2;
             color: #fff;
@@ -89,11 +81,10 @@
             margin-right: 10px;
         }
 
-        /* Styles for the Google button */
         .google-button {
             background-color: #fff;
             color: #000;
-            border: 3px solid #000; /* Add a 3px wide border */
+            border: 3px solid #000;
         }
         .google-button:hover {
             background-color: #f2f2f2;
@@ -104,14 +95,13 @@
             margin-right: 10px;
         }
 
-        /* Style for the separator line */
         .separator {
-            width: 40%; /* Adjust the width as needed */
+            width: 40%;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0 auto; /* Center horizontally with auto margin */
-            text-align: center; /* Center text within the separator */
+            margin: 0 auto;
+            text-align: center;
         }
 
         .separator-line {
@@ -125,20 +115,17 @@
 <body style="text-align: center;">
     <h1>Login with Facebook and Google</h1>
 
-    <!-- Create a login button using a simple Facebook login button -->
     <a href="#" class="login-button facebook-button" 
         onclick="startFacebookSignIn();">
         <img src="https://cdn.jsdelivr.net/npm/simple-icons@5.6/icons/facebook.svg" class="facebook-logo" alt="Facebook Logo">
         Sign up with Facebook
     </a>
 
-    <!-- Display user information once logged in with Google -->
     <a href="#" class="login-button google-button" onclick="startGoogleSignIn()">
         <img class="google-logo" src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo">
         Sign up with Google
     </a>
 
-    <!-- Separator line -->
     <div class="separator">
         <div class="separator-line"></div>
         <span>or</span>
