@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Login with Facebook and Google</title>
-        <script>
+    <script>
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
             console.log("Google ID: " + profile.getId());
@@ -23,18 +23,6 @@ function startGoogleSignIn() {
         });
     });
 }
-
-            function startFacebookSignIn() {
-    FB.login(function(response) {
-        if (response.authResponse) {
-            console.log('Logged in with Facebook!');
-            // Perform actions after successful login
-        } else {
-            console.log('Facebook login failed or cancelled.');
-        }
-    }, {scope: 'email'}); // Request email permission during login
-}
-
     </script>
 
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
@@ -59,7 +47,17 @@ function startGoogleSignIn() {
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
-    <script>
+<script>
+            function startFacebookSignIn() {
+    FB.login(function(response) {
+        if (response.authResponse) {
+            console.log('Logged in with Facebook!');
+            // Perform actions after successful login
+        } else {
+            console.log('Facebook login failed or cancelled.');
+        }
+    }, {scope: 'email'}); // Request email permission during login
+}
 
         function showEmailInput() {
             document.getElementById("email-label").style.display = "none";
@@ -144,7 +142,6 @@ function startGoogleSignIn() {
             background-color: #ccc;
             margin: 0 10px;
         }
-
         .form-input {
             display: none;
             margin: 10px 0;
@@ -173,25 +170,25 @@ function startGoogleSignIn() {
     <div class="form-input" id="email-label">
         What is your email? <br>
         <a href="#" onclick="showEmailInput();">Enter your email</a>
+        <input type="email" class="form-input" id="email-input" placeholder="Email">
     </div>
-    <input type="email" class="form-input" id="email-input" placeholder="Email">
 
     <div class="form-input" id="password-label">
         Create a password <br>
         <a href="#" onclick="showPasswordInputs();">Enter your password</a>
+        <input type="password" class="form-input" id="password-input" placeholder="Password">
     </div>
-    <input type="password" class="form-input" id="password-input" placeholder="Password">
-    
+
     <div class="form-input" id="confirm-password-label">
         Confirm password <br>
         <a href="#" onclick="showPasswordInputs();">Enter your password</a>
+        <input type="password" class="form-input" id="confirm-password-input" placeholder="Confirm Password">
     </div>
-    <input type="password" class="form-input" id="confirm-password-input" placeholder="Confirm Password">
 
     <div class="form-input" id="name-label">
         What should we call you? <br>
         <a href="#" onclick="showNameInput();">Enter your name</a>
+        <input type="text" class="form-input" id="name-input" placeholder="Name">
     </div>
-    <input type="text" class="form-input" id="name-input" placeholder="Name">
 </body>
 </html>
