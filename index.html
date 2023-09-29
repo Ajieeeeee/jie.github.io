@@ -3,32 +3,6 @@
 <head>
     <title>Login with Facebook and Google</title>
     <script>
-        // Function to handle the user's login status for Facebook
-        function statusChangeCallback(response) {
-            if (response.status === 'connected') {
-                // User is logged in with Facebook, you can access the authResponse object
-                var authResponse = response.authResponse;
-                // Perform actions like fetching user data or redirecting.
-            } else {
-                // User is not logged in or declined the login with Facebook
-            }
-        }
-
-        // Function to initiate the Facebook login process
-        function startFacebookSignIn() {
-            FB.getLoginStatus(function(response) {
-                if (response.status !== 'connected') {
-                    // User is not already logged in, trigger the login process
-                    FB.login(function(response) {
-                        statusChangeCallback(response);
-                    }, {scope: 'public_profile,email'});
-                } else {
-                    // User is already logged in, you can access the authResponse object
-                    statusChangeCallback(response);
-                }
-            });
-        }
-
         // Function to handle the user's login status for Google
         function onSignIn(googleUser) {
             // Access user information
@@ -38,10 +12,22 @@
             console.log("Email: " + profile.getEmail());
             // You can perform actions like sending the user's information to your server.
         }
+
+        // Load the Google Sign-In API with your client ID
+        function startGoogleSignIn() {
+            gapi.load('auth2', function() {
+                gapi.auth2.init({
+                    client_id: '156698314002-pa8phsisu2c4r8s0it9f30muj2b95rth.apps.googleusercontent.com' // Replace with your Google Client ID
+                }).then(function() {
+                    var auth2 = gapi.auth2.getAuthInstance();
+                    auth2.signIn().then(onSignIn);
+                });
+            });
+        }
     </script>
 
     <!-- Include the Google Sign-In JavaScript Library -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
     <!-- Include the Facebook JavaScript SDK -->
     <script>
@@ -119,16 +105,16 @@
         }
 
         /* Style for the separator line */
-	.separator {
-    	    width: 40%; /* Adjust the width as needed */
+        .separator {
+            width: 40%; /* Adjust the width as needed */
             display: flex;
             justify-content: center;
             align-items: center;
-	    margin: 0 auto; /* Center horizontally with auto margin */
-	    text-align: center; /* Center text within the separator */
-	}
+            margin: 0 auto; /* Center horizontally with auto margin */
+            text-align: center; /* Center text within the separator */
+        }
 
-	.separator-line {
+        .separator-line {
             flex-grow: 1;
             height: 1px;
             background-color: #ccc;
@@ -160,5 +146,3 @@
     </div>
 </body>
 </html>
-
-
