@@ -10,36 +10,20 @@
             console.log("Email: " + profile.getEmail());
         }
 
-function startGoogleSignIn() {
-    gapi.load('auth2', function() {
-        gapi.auth2.init({
-            client_id: '156698314002-pa8phsisu2c4r8s0it9f30muj2b95rth.apps.googleusercontent.com'
-        }).then(function(auth2) {
-            auth2.signIn().then(function(googleUser) {
-                // Handle successful sign-in
-            }).catch(function(error) {
-                console.error('Google Sign-In Error: ', error);
+        function startGoogleSignIn() {
+            gapi.load('auth2', function() {
+                gapi.auth2.init({
+                    client_id: '156698314002-pa8phsisu2c4r8s0it9f30muj2b95rth.apps.googleusercontent.com'
+                }).then(function(auth2) {
+                    auth2.signIn().then(function(googleUser) {
+                        onSignIn(googleUser);
+                    }).catch(function(error) {
+                        console.error('Google Sign-In Error: ', error);
+                    });
+                });
             });
-        });
-    });
-}
-
-            function startFacebookSignIn() {
-    FB.login(function(response) {
-        if (response.authResponse) {
-            console.log('Logged in with Facebook!');
-            // Perform actions after successful login
-        } else {
-            console.log('Facebook login failed or cancelled.');
         }
-    }, {scope: 'email'}); // Request email permission during login
-}
 
-    </script>
-
-    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-
-    <script>
         window.fbAsyncInit = function() {
             FB.init({
                 appId: '300289862630159',
@@ -58,9 +42,27 @@ function startGoogleSignIn() {
             js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
+
+        function showEmailInput() {
+            document.getElementById("email-label").style.display = "none";
+            document.getElementById("email-input").style.display = "block";
+        }
+
+        function showPasswordInputs() {
+            document.getElementById("password-label").style.display = "none";
+            document.getElementById("password-input").style.display = "block";
+            document.getElementById("confirm-password-label").style.display = "none";
+            document.getElementById("confirm-password-input").style.display = "block";
+        }
+
+        function showNameInput() {
+            document.getElementById("name-label").style.display = "none";
+            document.getElementById("name-input").style.display = "block";
+        }
     </script>
 
     <style>
+
         .login-button {
             display: block;
             margin: 20px auto;
@@ -125,18 +127,22 @@ function startGoogleSignIn() {
             background-color: #ccc;
             margin: 0 10px;
         }
+
+        .form-input {
+            display: none;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body style="text-align: center;">
     <h1>Login with Facebook and Google</h1>
 
-    <a href="#" class="login-button facebook-button" 
-        onclick="startFacebookSignIn();">
+    <a href="#" class="login-button facebook-button" onclick="startFacebookSignIn();">
         <img src="https://cdn.jsdelivr.net/npm/simple-icons@5.6/icons/facebook.svg" class="facebook-logo" alt="Facebook Logo">
         Sign up with Facebook
     </a>
 
-    <a href="#" class="login-button google-button" onclick="startGoogleSignIn()">
+    <a href="#" class="login-button google-button" onclick="startGoogleSignIn();">
         <img class="google-logo" src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo">
         Sign up with Google
     </a>
@@ -146,5 +152,29 @@ function startGoogleSignIn() {
         <span>or</span>
         <div class="separator-line"></div>
     </div>
+
+    <div class="form-input" id="email-label">
+        What is your email? <br>
+        <a href="#" onclick="showEmailInput();">Enter your email</a>
+    </div>
+    <input type="email" class="form-input" id="email-input" placeholder="Email">
+
+    <div class="form-input" id="password-label">
+        Create a password <br>
+        <a href="#" onclick="showPasswordInputs();">Enter your password</a>
+    </div>
+    <input type="password" class="form-input" id="password-input" placeholder="Password">
+    
+    <div class="form-input" id="confirm-password-label">
+        Confirm password <br>
+        <a href="#" onclick="showPasswordInputs();">Enter your password</a>
+    </div>
+    <input type="password" class="form-input" id="confirm-password-input" placeholder="Confirm Password">
+
+    <div class="form-input" id="name-label">
+        What should we call you? <br>
+        <a href="#" onclick="showNameInput();">Enter your name</a>
+    </div>
+    <input type="text" class="form-input" id="name-input" placeholder="Name">
 </body>
 </html>
