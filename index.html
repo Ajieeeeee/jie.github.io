@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Login with Facebook and Google</title>
-    <script>
+        <script>
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
             console.log("Google ID: " + profile.getId());
@@ -10,20 +10,36 @@
             console.log("Email: " + profile.getEmail());
         }
 
-        function startGoogleSignIn() {
-            gapi.load('auth2', function() {
-                gapi.auth2.init({
-                    client_id: '156698314002-pa8phsisu2c4r8s0it9f30muj2b95rth.apps.googleusercontent.com'
-                }).then(function(auth2) {
-                    auth2.signIn().then(function(googleUser) {
-                        onSignIn(googleUser);
-                    }).catch(function(error) {
-                        console.error('Google Sign-In Error: ', error);
-                    });
-                });
+function startGoogleSignIn() {
+    gapi.load('auth2', function() {
+        gapi.auth2.init({
+            client_id: '156698314002-pa8phsisu2c4r8s0it9f30muj2b95rth.apps.googleusercontent.com'
+        }).then(function(auth2) {
+            auth2.signIn().then(function(googleUser) {
+                // Handle successful sign-in
+            }).catch(function(error) {
+                console.error('Google Sign-In Error: ', error);
             });
-        }
+        });
+    });
+}
 
+            function startFacebookSignIn() {
+    FB.login(function(response) {
+        if (response.authResponse) {
+            console.log('Logged in with Facebook!');
+            // Perform actions after successful login
+        } else {
+            console.log('Facebook login failed or cancelled.');
+        }
+    }, {scope: 'email'}); // Request email permission during login
+}
+
+    </script>
+
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+    <script>
         window.fbAsyncInit = function() {
             FB.init({
                 appId: '300289862630159',
@@ -42,6 +58,8 @@
             js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script>
 
         function showEmailInput() {
             document.getElementById("email-label").style.display = "none";
@@ -62,7 +80,6 @@
     </script>
 
     <style>
-
         .login-button {
             display: block;
             margin: 20px auto;
